@@ -10,11 +10,11 @@ const authProviderSchema = new Schema<IAuthProvider>({
 })
 
 const userSchema = new Schema<IUser>({
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true, min: 3, max: 255 },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phone: { type: String },
-    role: { type: String, required: true, enum: Object.values(Role), default: Role.RIDER },
+    role: { type: String, required: true, enum: { values: Object.values(Role), default: Role.RIDER, message: "{VALUE} is not acceptable" } },
     address: { type: String },
     auths: { type: [authProviderSchema], required: true },
     isActive: { type: String, enum: Object.keys(isActive) },
