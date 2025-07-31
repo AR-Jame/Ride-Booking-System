@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
 import { env } from "../../config/env";
 import { IAuthProvider, IUser } from "./user.interface";
 import bcryptjs from 'bcryptjs';
 import { User } from "./user.model";
+import { userSearchableFields } from "./user.constrain";
+import { QueryBuilder } from "../../utils/QueryBuilder";
 
 const createUser = async (body: Partial<IUser>) => {
     const { email, password, ...rest } = body;
@@ -23,7 +26,31 @@ const createUser = async (body: Partial<IUser>) => {
     return user
 }
 
+const getUsers = async (query: Record<string, string>) => {
+
+    const queryBuilder = new QueryBuilder(User.find(), query);
+
+    const data = await queryBuilder
+        .search(userSearchableFields)
+        .fieldFilter()
+        .filter()
+        .paginate()
+        .build();
+        
+    return data
+}
+
 
 export const userServices = {
-    createUser
+    createUser,
+    getUsers
 }
+
+
+/**
+ * sorting
+ * field filtering
+ * filtering
+ * searching
+ * pagination
+*/
