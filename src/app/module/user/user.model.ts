@@ -17,7 +17,7 @@ const userSchema = new Schema<IUser>({
     role: { type: String, required: true, enum: { values: Object.values(Role), default: Role.RIDER, message: "{VALUE} is not acceptable" } },
     address: { type: String },
     auths: { type: [authProviderSchema], required: true },
-    isActive: { type: String, enum: Object.keys(isActive) },
+    isActive: { type: String, enum: Object.keys(isActive), default: isActive.ACTIVE },
     isDeleted: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false }
 }, {
