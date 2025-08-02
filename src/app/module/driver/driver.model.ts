@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IDriver, IDriverStatus, IVehicle } from "./driver.interface";
+import { IDriver, IDriverStatus, ILocation, IVehicle } from "./driver.interface";
 
 
 const vehicleSchema = new Schema<IVehicle>({
@@ -9,6 +9,16 @@ const vehicleSchema = new Schema<IVehicle>({
 }, {
     versionKey: false,
     _id: false
+})
+
+
+const locationSchema = new Schema<ILocation>({
+    latitude: { type: String, required: true },
+    longitude: { type: String, required: true },
+}, {
+    versionKey: false,
+    _id: false,
+    timestamps: false
 })
 
 
@@ -38,7 +48,8 @@ const driverSchema = new Schema<IDriver>({
         enum: Object.keys(IDriverStatus),
         default: IDriverStatus.REQUESTED
     },
-    vehicle: vehicleSchema
+    vehicle: vehicleSchema,
+    currentLocation: { type: locationSchema, required: false },
 }, {
     versionKey: false,
     timestamps: true

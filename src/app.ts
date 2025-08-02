@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { router } from './app/router/index'
 import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
+import notFound from './app/middlewares/notFound';
 
 
 const app = express();
@@ -17,6 +18,8 @@ app.get('/', (req, res) => {
     res.send("Ride booking app is running successfully.")
 })
 
+
 app.use(globalErrorHandler)
+app.use(notFound)
 
 export default app
