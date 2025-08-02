@@ -17,15 +17,24 @@ router.get("/",
     // checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     checkAuth(Role.RIDER),
     driverControllers.getDriversWithUser
-)
+);
 
-router.patch('/update-status/:id',
+router.get("/me",
+    checkAuth(Role.DRIVER),
+    driverControllers.getDriverProfile
+);
+
+router.patch('/update-status/:userId',
     // checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     driverControllers.updateDriverStatus
 )
 router.patch('/update-availability',
     checkAuth(Role.DRIVER),
     driverControllers.updateAvailability
+)
+router.patch('/update-rating/:driverId',
+    checkAuth(Role.RIDER),
+    driverControllers.updateRating
 )
 
 export const driverRoutes = router;

@@ -35,20 +35,30 @@ const getDriversWithUser = async (query: Record<string, string>) => {
         .paginate()
         .build()
     return drivers
+};
+
+const getDriverProfile = async (id: string) => {
+
+    const data = await Driver.findOne({ user: id }).populate("user");
+
+    if (!data) {
+        throw new Error("Driver does not exists.")
+    }
+    return data
 }
 
-const updateDriverStatus = async (id: string, status: string) => {
+const updateDriverStatus = async (userId: string, status: string) => {
 
     if (status === "yes") {
-        const updatedUser = await User.findByIdAndUpdate(id, { role: Role.DRIVER });
+        const updatedUser = await User.findByIdAndUpdate(userId, { role: Role.DRIVER });
         if (!updatedUser) {
             throw new Error("User does not exists.")
         }
-        await Driver.findOneAndUpdate({ user: id }, { status: IDriverStatus.APPROVED })
+        await Driver.findOneAndUpdate({ user: userId }, { status: IDriverStatus.APPROVED })
         return true
     }
     else if (status === "no") {
-        await Driver.findOneAndUpdate({ user: id }, { status: IDriverStatus.SUSPEND })
+        await Driver.findOneAndUpdate({ user: userId }, { status: IDriverStatus.SUSPEND })
         return true
     }
     else {
@@ -57,11 +67,9 @@ const updateDriverStatus = async (id: string, status: string) => {
 
 }
 
-const updateAvailability = async (id: string, availability: boolean) => {
+const updateAvailability = async (userId: string, availability: boolean) => {
 
-    const isUserExist = await Driver.findOne({ user: id });
-
-    console.log(isUserExist);
+    const isUserExist = await Driver.findOne({ user: userId });
 
     if (!isUserExist) {
         throw new Error("Driver does not found");
@@ -70,14 +78,40 @@ const updateAvailability = async (id: string, availability: boolean) => {
         throw new Error("We can't update your status right now.");
     }
 
-    await Driver.updateOne({ _id: id, }, { status: availability });
+    await Driver.updateOne({ _id: userId, }, { status: availability });
 
     return true
+}
+
+const updateRating = async (id: string, rating: number) => {
+
+    if (rating < 1 || rating > 5) {
+        throw new Error("Rating must be between 1 to 5.")
+    }
+
+    const data = await Driver.findByIdAndUpdate(
+        id,
+        [
+            {
+                $set: {
+                    rating: { $add: [{ $ifNull: ["$rating", 0] }, rating] },
+                    ratingCount: { $add: [{ $ifNull: ["$ratingCount", 0] }, 1] },
+                }
+            }
+        ],
+        {
+            new: true
+        }
+    )
+
+    return data
 }
 
 export const driverServices = {
     createDriver,
     getDriversWithUser,
+    getDriverProfile,
     updateDriverStatus,
-    updateAvailability
+    updateAvailability,
+    updateRating
 }

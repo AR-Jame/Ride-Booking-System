@@ -11,11 +11,26 @@ export const createVehicleSchema = z.object({
         .min(1, "vehicle Brand is required"),
     vehicleModel: z
         .string()
-        .min(2, "Plate number is required"),
+        .min(2, "vehicleModel is required"),
     vehicleLicense: z
         .string()
         .min(5, "Vehicle License is required"),
 });
+
+
+export const createLocation = z.object({
+    latitude: z
+        .string()
+        .min(10, "vehicle Brand is required & at least 10 chars."),
+    longitude: z
+        .string()
+        .min(10, "vehicle must be at least 10 chars"),
+    vehicleLicense: z
+        .string()
+        .min(5, "Vehicle License is required"),
+});
+
+
 
 export const createDriverSchema = z.object({
     _id: ObjectIdSchema.optional(),
@@ -38,4 +53,5 @@ export const createDriverSchema = z.object({
         .min(0, "Rating cannot be negative")
         .optional(),
     vehicle: createVehicleSchema,
+    currentLocation: createLocation.optional()
 });

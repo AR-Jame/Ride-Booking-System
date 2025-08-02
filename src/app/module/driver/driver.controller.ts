@@ -32,11 +32,24 @@ const getDriversWithUser = catchAsync(async (req: Request, res: Response) => {
 
 })
 
+const getDriverProfile = catchAsync(async (req: Request, res: Response) => {
+
+    const userId = req.user.id;
+    const driver = await driverServices.getDriverProfile(userId);
+
+    sendResponse(res, {
+        statusCode: 201,
+        message: "Driver profile retrieved successfully.",
+        success: true,
+        data: driver
+    })
+
+})
 
 const updateDriverStatus = catchAsync(async (req: Request, res: Response) => {
-    const id = req.params.id;
+    const userId = req.params.userId;
     const status = req.body.acceptance;
-    const response = await driverServices.updateDriverStatus(id, status);
+    const response = await driverServices.updateDriverStatus(userId, status);
 
     sendResponse(res, {
         statusCode: 201,
@@ -46,10 +59,11 @@ const updateDriverStatus = catchAsync(async (req: Request, res: Response) => {
     })
 
 })
+
 const updateAvailability = catchAsync(async (req: Request, res: Response) => {
-    const id = req.user.id;
+    const userId = req.user.id;
     const availability = req.body.availability;
-    const response = await driverServices.updateAvailability(id, availability);
+    const response = await driverServices.updateAvailability(userId, availability);
 
     sendResponse(res, {
         statusCode: 201,
@@ -60,9 +74,25 @@ const updateAvailability = catchAsync(async (req: Request, res: Response) => {
 
 })
 
+const updateRating = catchAsync(async (req: Request, res: Response) => {
+    const driverId = req.params.driverId;
+    const rating = req.body.rating;
+    const response = await driverServices.updateRating(driverId, Number(rating));
+
+    sendResponse(res, {
+        statusCode: 201,
+        message: "Rating updated successfully.",
+        success: true,
+        data: response
+    })
+
+})
+
 export const driverControllers = {
     createDriver,
     getDriversWithUser,
+    getDriverProfile,
     updateDriverStatus,
-    updateAvailability
+    updateAvailability,
+    updateRating
 } 
