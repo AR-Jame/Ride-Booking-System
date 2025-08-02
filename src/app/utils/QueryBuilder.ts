@@ -58,5 +58,10 @@ export class QueryBuilder<T> {
         return this.modelQuery
     }
 
+    population(field: string): this {
+        this.modelQuery = this.modelQuery.populate(field);
+        return this
+    }
+
     // TODO: we will add meta here
 }

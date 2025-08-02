@@ -16,5 +16,7 @@ export const checkAuth = (...role: string[]) => (req: Request, res: Response, ne
         throw new Error("These resources aren't available for you.")
     }
 
+    req.user = verifiedToken;
+
     next()
 }
