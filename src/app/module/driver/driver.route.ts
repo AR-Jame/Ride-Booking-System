@@ -16,12 +16,11 @@ router.post("/create",
 
 router.post("/nearest-driver",
     checkAuth(Role.RIDER),
-    driverControllers.getNearestDriver
+    driverControllers.getNearbyDrivers
 );
 
 router.get("/",
-    // checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
-    checkAuth(Role.RIDER),
+    checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     driverControllers.getDriversWithUser
 );
 
@@ -31,7 +30,7 @@ router.get("/me",
 );
 
 router.patch('/update-status/:userId',
-    // checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+    checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     driverControllers.updateDriverStatus
 )
 router.patch('/update-availability',

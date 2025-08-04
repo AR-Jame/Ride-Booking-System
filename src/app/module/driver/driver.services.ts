@@ -47,7 +47,7 @@ const getDriverProfile = async (id: string) => {
     return data
 }
 
-const getNearestDriver = async (coords: number[]) => {
+const getNearbyDrivers = async (coords: number[]) => {
 
     const data = await Driver.find({
         currentLocation: {
@@ -131,5 +131,5 @@ export const driverServices = {
     updateDriverStatus,
     updateAvailability,
     updateRating,
-    getNearestDriver
+    getNearbyDrivers
 }

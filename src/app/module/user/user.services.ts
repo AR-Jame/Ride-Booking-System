@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-dynamic-delete */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { env } from "../../config/env";
-import { IAuthProvider, IUser } from "./user.interface";
+import { IAuthProvider, IUser, Role } from "./user.interface";
 import bcryptjs from 'bcryptjs';
 import { User } from "./user.model";
 import { QueryBuilder } from "../../utils/QueryBuilder";
+import { JwtPayload } from "jsonwebtoken";
+import { Types } from "mongoose";
+import AppError from "../../errorHelper/AppError";
 
 const createUser = async (body: Partial<IUser>) => {
     const { email, password, ...rest } = body;
@@ -38,17 +41,50 @@ const getUsers = async (query: Record<string, string>) => {
     return data
 }
 
+const updateUserActivation = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
+
+    if (payload.role) {
+        if (decodedToken.role === Role.RIDER || decodedToken.role === Role.DRIVER) {
+            throw new Error("You are not authorized.")
+        }
+
+        if (payload.role === Role.SUPER_ADMIN && decodedToken.role === Role.ADMIN) {
+            throw new Error("You are not authorized.")
+        }
+
+    }
+
+    if (payload.isActive || payload.isDeleted) {
+        if (decodedToken.role === Role.RIDER || decodedToken.role === Role.DRIVER) {
+            throw new Error("You are not authorized.")
+        }
+
+    }
+
+    if (payload.password) {
+        payload.password = await bcryptjs.hash(payload.password, env.BCRYPT_SALT_ROUND);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, payload, { new: true })
+
+    return updatedUser
+}
+
+const getProfile = async (userId: Types.ObjectId) => {
+    const user = await User.findById(userId);
+
+    if(!user){
+        throw new AppError(404, "User Does not found")
+    }
+
+    const { password, ...rest } = user?.toObject() as IUser;
+
+    return rest;
+}
 
 export const userServices = {
     createUser,
-    getUsers
+    getUsers,
+    updateUserActivation,
+    getProfile
 }
-
-
-/**
- * sorting
- * field filtering
- * filtering
- * searching
- * pagination
-*/

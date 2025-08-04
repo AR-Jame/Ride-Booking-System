@@ -4,6 +4,7 @@ import { Ride } from "./ride.model"
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { JwtPayload } from "jsonwebtoken";
 import { Role } from "../user/user.interface";
+import AppError from "../../errorHelper/AppError";
 
 const createRideRequest = async (body: Partial<IRide>, rider: Types.ObjectId) => {
     body.rider = rider;
@@ -15,12 +16,7 @@ const acceptRide = async (rideId: string, userId: Types.ObjectId) => {
 
     const activeRide = await Ride.findOne({
         driver: userId,
-        $expr: {
-            $and: [
-                { $ne: [{ $last: "$status.status" }, "cancelled"] },
-                { $ne: [{ $last: "$status.status" }, "completed"] },
-            ]
-        }
+        currentStatus: { $nin: [IRideStatusEnum.CANCELED, IRideStatusEnum.COMPLETED] }
     });
 
     if (activeRide) {
@@ -33,14 +29,14 @@ const acceptRide = async (rideId: string, userId: Types.ObjectId) => {
         throw new Error("Ride does not found")
     }
 
-    if (ride.status[ride.status.length - 1].status !== IRideStatusEnum.REQUESTED) {
-        throw new Error("You can't accept this ride.")
+    if (ride.currentStatus !== IRideStatusEnum.REQUESTED) {
+        throw new AppError(400, "Someone already accept this ride.")
     }
 
     const updatedRide = await Ride.findByIdAndUpdate(
         rideId,
         {
-            $set: { driver: userId },
+            $set: { driver: userId, currentStatus: IRideStatusEnum.ACCEPTED },
             $addToSet: { status: { status: IRideStatusEnum.ACCEPTED, at: new Date() } }
         },
         { new: true }
@@ -58,7 +54,7 @@ const getAllRides = async (query: Record<string, string>) => {
     return data;
 }
 
-const getRideByUser = async (userPayload: JwtPayload) => {
+const rideHistory = async (userPayload: JwtPayload) => {
 
     let rides;
 
@@ -70,6 +66,24 @@ const getRideByUser = async (userPayload: JwtPayload) => {
     }
 
     return rides
+}
+
+const rideDetails = async (rideId: string) => {
+    const data = await Ride.findById(rideId);
+    return data
+}
+
+const getCurrentRide = async (decodedToken: JwtPayload) => {
+    let ride;
+
+    if (decodedToken.role === Role.DRIVER) {
+        ride = await Ride.findOne({ driver: decodedToken.id });
+    }
+    else if (decodedToken.role === Role.RIDER) {
+        ride = await Ride.findOne({ rider: decodedToken.id });
+    }
+
+    return ride;
 }
 
 const getEarningHistory = async (userId: Types.ObjectId, time: string) => {
@@ -143,8 +157,8 @@ const cancelRide = async (rideId: string, userId: Types.ObjectId) => {
         throw new Error("Ride does not exists.")
     }
 
-    if (ride.status[ride.status.length - 1].status !== IRideStatusEnum.REQUESTED) {
-        throw new Error("You can't cancel your ride in this stage.")
+    if (ride.currentStatus !== IRideStatusEnum.REQUESTED) {
+        throw new AppError(400, "You can't cancel this ride in this stage.")
     }
 
     if (ride.driver !== userId && ride.rider !== userId) {
@@ -154,7 +168,7 @@ const cancelRide = async (rideId: string, userId: Types.ObjectId) => {
     const updatedRide = await Ride.findByIdAndUpdate(
         rideId,
         {
-            $set: { canceledBy: userId },
+            $set: { canceledBy: userId, currentStatus: IRideStatusEnum.CANCELED },
             $addToSet: { status: { status: IRideStatusEnum.CANCELED, at: new Date() } }
         },
         { new: true }
@@ -169,10 +183,11 @@ const updateRideStatus = async (rideId: string, status: string) => {
     const updatedRide = await Ride.findByIdAndUpdate(
         rideId,
         {
-            $addToSet: { status: { status: status, at: new Date() } }
+            $set: { currentStatus: status },
+            $push: { status: { status, at: new Date() } }
         },
         { new: true }
-    )
+    );
 
     return updatedRide
 }
@@ -181,8 +196,10 @@ const updateRideStatus = async (rideId: string, status: string) => {
 export const rideServices = {
     createRideRequest,
     getAllRides,
-    getRideByUser,
+    rideHistory,
+    rideDetails,
     getEarningHistory,
+    getCurrentRide,
     getNearByRides,
     acceptRide,
     cancelRide,
