@@ -13,6 +13,12 @@ router.post("/create",
     driverControllers.createDriver
 );
 
+
+router.post("/nearest-driver",
+    checkAuth(Role.RIDER),
+    driverControllers.getNearestDriver
+);
+
 router.get("/",
     // checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     checkAuth(Role.RIDER),

@@ -12,7 +12,7 @@ router.post('/create',
     userControllers.createUser
 );
 router.get('/',
-    checkAuth(Role.ADMIN, Role.RIDER),
+    // checkAuth(Role.ADMIN, Role.RIDER),
     userControllers.getUsers
 );
 

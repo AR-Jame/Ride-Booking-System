@@ -45,6 +45,20 @@ const getDriverProfile = catchAsync(async (req: Request, res: Response) => {
     })
 
 })
+const getNearestDriver = catchAsync(async (req: Request, res: Response) => {
+
+    const coords = req.body.coords;
+
+    const driver = await driverServices.getNearestDriver(coords);
+
+    sendResponse(res, {
+        statusCode: 201,
+        message: "Nearest driver retrieved successfully.",
+        success: true,
+        data: driver
+    })
+
+})
 
 const updateDriverStatus = catchAsync(async (req: Request, res: Response) => {
     const userId = req.params.userId;
@@ -92,6 +106,7 @@ export const driverControllers = {
     createDriver,
     getDriversWithUser,
     getDriverProfile,
+    getNearestDriver,
     updateDriverStatus,
     updateAvailability,
     updateRating

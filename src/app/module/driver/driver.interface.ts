@@ -6,11 +6,6 @@ export interface IVehicle {
     vehicleLicense: string;
 }
 
-export interface ILocation {
-    latitude: string;
-    longitude: string;
-};
-
 export enum IDriverStatus {
     REQUESTED = "REQUESTED",
     APPROVED = "APPROVED",
@@ -26,5 +21,5 @@ export interface IDriver {
     rating?: number;
     ratingCount: number;
     vehicle: IVehicle;
-    currentLocation?: ILocation
+    currentLocation: number[];
 }

@@ -1,10 +1,6 @@
 import z from "zod";
 import { IDriverStatus } from "./driver.interface";
 
-const ObjectIdSchema = z
-    .string()
-    .regex(/^[0-9a-fA-F]{24}$/, "Invalid ObjectId format");
-
 export const createVehicleSchema = z.object({
     vehicleBrand: z
         .string()
@@ -18,23 +14,8 @@ export const createVehicleSchema = z.object({
 });
 
 
-export const createLocation = z.object({
-    latitude: z
-        .string()
-        .min(10, "vehicle Brand is required & at least 10 chars."),
-    longitude: z
-        .string()
-        .min(10, "vehicle must be at least 10 chars"),
-    vehicleLicense: z
-        .string()
-        .min(5, "Vehicle License is required"),
-});
-
-
-
 export const createDriverSchema = z.object({
-    _id: ObjectIdSchema.optional(),
-    user: ObjectIdSchema,
+    _id: z.string().optional(),
     availability: z.boolean({ error: "Availability must be boolean" }),
     drivingLicense: z
         .string()
@@ -53,5 +34,5 @@ export const createDriverSchema = z.object({
         .min(0, "Rating cannot be negative")
         .optional(),
     vehicle: createVehicleSchema,
-    currentLocation: createLocation.optional()
+    currentLocation: z.array(z.number())
 });
