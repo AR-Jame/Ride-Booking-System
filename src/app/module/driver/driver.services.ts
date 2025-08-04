@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JwtPayload } from "jsonwebtoken";
 import { IDriver, IDriverStatus } from "./driver.interface";
 import { User } from "../user/user.model";
@@ -18,6 +17,7 @@ const createDriver = async (body: Partial<IDriver>, payload: JwtPayload) => {
     }
 
     body.status = IDriverStatus.REQUESTED;
+    body.user = payload.id;
 
     const driver = await Driver.create(body);
 
@@ -45,6 +45,23 @@ const getDriverProfile = async (id: string) => {
         throw new Error("Driver does not exists.")
     }
     return data
+}
+
+const getNearestDriver = async (coords: number[]) => {
+
+    const data = await Driver.find({
+        currentLocation: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: coords
+                },
+                $maxDistance: 5000
+            }
+        }
+    })
+
+    return data;
 }
 
 const updateDriverStatus = async (userId: string, status: string) => {
@@ -113,5 +130,6 @@ export const driverServices = {
     getDriverProfile,
     updateDriverStatus,
     updateAvailability,
-    updateRating
+    updateRating,
+    getNearestDriver
 }

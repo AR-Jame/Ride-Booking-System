@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-dynamic-delete */
 import { Query } from "mongoose";
 import { excludeFields } from "../module/user/user.constrain";
@@ -25,23 +26,34 @@ export class QueryBuilder<T> {
 
     filter(): this {
         const filter = { ...this.query };
-
         for (const field of excludeFields) {
             delete filter[field]
         }
 
-        this.modelQuery = this.modelQuery.find(filter);
-        return this
-    }
+        const numFields = ["fare", "distance"];
 
-    search(searchAbleFields: string[]): this {
-        const searchTerm = this.query.searchTerm || "";
-
-        const searchQuery = {
-            $or: searchAbleFields.map(field => ({ [field]: { $regex: searchTerm, $options: "i" } }))
-
+        for (const field of numFields) {
+            if (filter[field]) {
+                filter[field] = parseFloat(filter[field]) as any
+            }
         }
-        this.modelQuery = this.modelQuery.find(searchQuery);
+
+
+        let mongoFilter: any = { ...filter };
+        if (filter.status) {
+            mongoFilter = {
+                ...mongoFilter,
+                $expr: {
+                    $eq: [
+                        { $arrayElemAt: ["$status.status", -1] },
+                        filter.status
+                    ]
+                }
+            }
+            delete mongoFilter.status;
+        }
+
+        this.modelQuery = this.modelQuery.find(mongoFilter);
         return this
     }
 

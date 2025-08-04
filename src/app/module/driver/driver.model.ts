@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IDriver, IDriverStatus, ILocation, IVehicle } from "./driver.interface";
+import { IDriver, IDriverStatus, IVehicle } from "./driver.interface";
 
 
 const vehicleSchema = new Schema<IVehicle>({
@@ -10,17 +10,6 @@ const vehicleSchema = new Schema<IVehicle>({
     versionKey: false,
     _id: false
 })
-
-
-const locationSchema = new Schema<ILocation>({
-    latitude: { type: String, required: true },
-    longitude: { type: String, required: true },
-}, {
-    versionKey: false,
-    _id: false,
-    timestamps: false
-})
-
 
 const driverSchema = new Schema<IDriver>({
     user: {
@@ -49,11 +38,14 @@ const driverSchema = new Schema<IDriver>({
         default: IDriverStatus.REQUESTED
     },
     vehicle: vehicleSchema,
-    currentLocation: { type: locationSchema, required: false },
+    currentLocation: { type: [Number], required: true },
 }, {
     versionKey: false,
     timestamps: true
 })
+
+
+driverSchema.index({ currentLocation: '2dsphere' });
 
 export const Driver = model<IDriver>("Driver", driverSchema);
 
