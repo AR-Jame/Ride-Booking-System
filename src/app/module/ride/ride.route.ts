@@ -30,6 +30,11 @@ router.get('/cancel-ride/:rideId',
     rideControllers.cancelRide
 )
 
+router.get('/nearby-rides',
+    checkAuth(Role.DRIVER),
+    rideControllers.getNearByRides
+)
+
 router.patch('/update-ride-status/:rideId',
     checkAuth(Role.DRIVER),
     rideControllers.updateRideStatus

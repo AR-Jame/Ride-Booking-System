@@ -59,6 +59,20 @@ const getEarningHistory = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getNearByRides = catchAsync(async (req: Request, res: Response) => {
+
+    const query = req.query;
+
+    const rideData = await rideServices.getNearByRides(query as any);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Nearby rides retrieved successfully",
+        data: rideData
+    })
+})
+
 const cancelRide = catchAsync(async (req: Request, res: Response) => {
 
     const rideId = req.params.rideId;
@@ -110,6 +124,7 @@ export const rideControllers = {
     getAllRides,
     getRideByUser,
     getEarningHistory,
+    getNearByRides,
     acceptRide,
     cancelRide,
     updateRideStatus

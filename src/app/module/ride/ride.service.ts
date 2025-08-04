@@ -112,6 +112,30 @@ const getEarningHistory = async (userId: Types.ObjectId, time: string) => {
     return data;
 }
 
+const getNearByRides = async (query: Record<string, string>) => {
+
+    const lat = query.latitude;
+    const lnt = query.longitude;
+
+    const coords = [Number(lat), Number(lnt)];
+
+
+    const data = await Ride.find({
+        arrival: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: coords
+                },
+                $maxDistance: 5000
+            }
+        },
+        currentStatus: IRideStatusEnum.REQUESTED
+    })
+
+    return data;
+}
+
 const cancelRide = async (rideId: string, userId: Types.ObjectId) => {
     const ride = await Ride.findById(rideId);
 
@@ -159,6 +183,7 @@ export const rideServices = {
     getAllRides,
     getRideByUser,
     getEarningHistory,
+    getNearByRides,
     acceptRide,
     cancelRide,
     updateRideStatus
