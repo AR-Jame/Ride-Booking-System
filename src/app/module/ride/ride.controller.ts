@@ -30,12 +30,37 @@ const getAllRides = catchAsync(async (req: Request, res: Response) => {
         data: rideData
     })
 })
+const getCurrentRide = catchAsync(async (req: Request, res: Response) => {
 
-const getRideByUser = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user;
+    const rideData = await rideServices.getCurrentRide(user);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Ride retrieved successfully",
+        data: rideData
+    })
+})
+
+const rideHistory = catchAsync(async (req: Request, res: Response) => {
 
     const user = req.user;
 
-    const rideData = await rideServices.getRideByUser(user);
+    const rideData = await rideServices.rideHistory(user);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Rides retrieved successfully",
+        data: rideData
+    })
+})
+const rideDetails = catchAsync(async (req: Request, res: Response) => {
+
+    const rideId = req.params.rideId;
+
+    const rideData = await rideServices.rideDetails(rideId);
 
     sendResponse(res, {
         statusCode: 200,
@@ -59,6 +84,20 @@ const getEarningHistory = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getNearByRides = catchAsync(async (req: Request, res: Response) => {
+
+    const query = req.query;
+
+    const rideData = await rideServices.getNearByRides(query as any);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Nearby rides retrieved successfully",
+        data: rideData
+    })
+})
+
 const cancelRide = catchAsync(async (req: Request, res: Response) => {
 
     const rideId = req.params.rideId;
@@ -73,7 +112,6 @@ const cancelRide = catchAsync(async (req: Request, res: Response) => {
         data: rideData
     })
 })
-
 
 const updateRideStatus = catchAsync(async (req: Request, res: Response) => {
 
@@ -108,8 +146,11 @@ const acceptRide = catchAsync(async (req: Request, res: Response) => {
 export const rideControllers = {
     createRideRequest,
     getAllRides,
-    getRideByUser,
+    rideHistory,
+    rideDetails,
     getEarningHistory,
+    getNearByRides,
+    getCurrentRide,
     acceptRide,
     cancelRide,
     updateRideStatus

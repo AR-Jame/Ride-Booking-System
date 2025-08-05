@@ -28,6 +28,11 @@ const rideSchema = new Schema<IRide>({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    currentStatus: {
+        type: String,
+        enum: Object.keys(IRideStatusEnum),
+        default: IRideStatusEnum.REQUESTED,
+    },
     status: {
         type: [rideStatusSchema],
         default: [{ status: IRideStatusEnum.REQUESTED, at: new Date() }]
@@ -47,6 +52,7 @@ const rideSchema = new Schema<IRide>({
     timestamps: true
 })
 
+rideSchema.index({ arrival: "2dsphere" })
 
 rideSchema.pre('save', async function (next) {
     const body = this;

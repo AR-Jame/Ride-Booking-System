@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.driverRoutes = void 0;
+const express_1 = require("express");
+const driver_controller_1 = require("./driver.controller");
+const checkAuth_1 = require("../../middlewares/checkAuth");
+const user_interface_1 = require("../user/user.interface");
+const schemaValidation_1 = require("../../middlewares/schemaValidation");
+const driver_validation_1 = require("./driver.validation");
+const router = (0, express_1.Router)();
+router.post("/create", (0, schemaValidation_1.zodValidation)(driver_validation_1.createDriverSchema), (0, checkAuth_1.checkAuth)(user_interface_1.Role.RIDER), driver_controller_1.driverControllers.createDriver);
+router.post("/nearest-driver", (0, checkAuth_1.checkAuth)(user_interface_1.Role.RIDER), driver_controller_1.driverControllers.getNearbyDrivers);
+router.get("/", (0, checkAuth_1.checkAuth)(user_interface_1.Role.ADMIN, user_interface_1.Role.SUPER_ADMIN), driver_controller_1.driverControllers.getDriversWithUser);
+router.get("/me", (0, checkAuth_1.checkAuth)(user_interface_1.Role.DRIVER), driver_controller_1.driverControllers.getDriverProfile);
+router.patch('/update-status/:userId', (0, checkAuth_1.checkAuth)(user_interface_1.Role.ADMIN, user_interface_1.Role.SUPER_ADMIN), driver_controller_1.driverControllers.updateDriverStatus);
+router.patch('/update-availability', (0, checkAuth_1.checkAuth)(user_interface_1.Role.DRIVER), driver_controller_1.driverControllers.updateAvailability);
+router.patch('/update-rating/:driverId', (0, checkAuth_1.checkAuth)(user_interface_1.Role.RIDER), driver_controller_1.driverControllers.updateRating);
+exports.driverRoutes = router;

@@ -18,6 +18,7 @@ export interface IRide {
     _id?: Types.ObjectId;
     driver?: Types.ObjectId;
     rider?: Types.ObjectId;
+    currentStatus: IRideStatusEnum;
     status: IRideStatus[];
     fare: number;
     distance: number;
