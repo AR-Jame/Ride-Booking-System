@@ -1,0 +1,758 @@
+{
+	"info": {
+		"_postman_id": "a671aaf6-db6b-4e72-be1a-97553e63c1f9",
+		"name": "Ride-booking-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46942171",
+		"_collection_link": "https://material-cosmonaut-14897054-5153323.postman.co/workspace/Abdur-Rahman's-Workspace~b343cad9-f120-4e34-8354-963b8ecfc29a/collection/46942171-a671aaf6-db6b-4e72-be1a-97553e63c1f9?action=share&source=collection_link&creator=46942171"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Production\",\r\n    \"email\" : \"production@gmail.com\",\r\n    \"password\": \"12345678\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0NDA5ZTk0ZjJhNWM2MzVkNDBlMyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0MzM0NjM4LCJleHAiOjE3NTQ0MjEwMzh9.BrD-cKboHqlIju7jyshw7pz6SInHoQeNtEgj8D6rKVA",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0M2ZlZTk0ZjJhNWM2MzVkNDBlMSIsImVtYWlsIjoidGF5eWViYUBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzODMyMzUsImV4cCI6MTc1NDQ2OTYzNX0.j-qA02A8tgGDsNMq337QW-yt5DaFQp4Gr0ESzwVXwYA",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OTFjMGRhNzZhMDBhNThiOTc4NzNjOSIsImVtYWlsIjoicHJvZHVjdGlvbkBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzODM2NzIsImV4cCI6MTc1NDQ3MDA3Mn0.qip7W0FoiCE3zGUbhSAIpMlDMaSRAlj-gtQocBBNEN4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "name,password",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "abdc@abd.com",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "DRIVER",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activation\": \"ACTIVE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/update-activation/688e40d05648308f35b9ad92",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"update-activation",
+								"688e40d05648308f35b9ad92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0M2ZlZTk0ZjJhNWM2MzVkNDBlMSIsImVtYWlsIjoidGF5eWViYUBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzMjg1MzUsImV4cCI6MTc1NDQxNDkzNX0.YLZThw1pKBCNGLkqKms4Q4k6Aa8AVuUvD43NF_5g9EE",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0M2ZlZTk0ZjJhNWM2MzVkNDBlMSIsImVtYWlsIjoidGF5eWViYUBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzMjMzNDMsImV4cCI6MTc1NDQwOTc0M30.9QplO17nQCnXmhn11Qago97JfQAc8hcISQ5Vkkh-0Lk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/user-details/688e43fee94f2a5c635d40e1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"user-details",
+								"688e43fee94f2a5c635d40e1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin@gmail.com\",\r\n    \"password\": \"12345678\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get new access token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/access-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"access-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "request as driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0MTUzMzIyLCJleHAiOjE3NTQyMzk3MjJ9.8TFAANqzzpGi7KuC8tXPc8MU6iV7SMSQy9ZcJaKYbpg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"availability\": false,\r\n    \"drivingLicense\": \"My drivifdsng e\",\r\n    \"rating\": null,\r\n    \"vehicle\": {\r\n        \"vehicleBrand\": \"Honda\",\r\n        \"vehicleModel\": \"s20 Altra\",\r\n        \"vehicleLicense\": \"MY vechicle license\"\r\n    },\r\n    \"currentLocation\": [\r\n        90.4683793040608,\r\n        23.69420338907698\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/driver/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all drivers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0NDA5ZTk0ZjJhNWM2MzVkNDBlMyIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0Mzk1NTIyLCJleHAiOjE3NTQ0ODE5MjJ9.BlaOEAzEr76NvA1IoX0JawbKG1pedsbJygUuRzpOHek",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/driver",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver"
+							],
+							"query": [
+								{
+									"key": "vehicleBrand",
+									"value": "Hodan",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "user",
+									"value": "688b18171ca514f5d2bba38b",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "REQUESTED",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update driver status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"acceptance\": \"yes\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/driver/update-status/688e40d05648308f35b9ad92",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"update-status",
+								"688e40d05648308f35b9ad92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update driver availability",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGIxODE3MWNhNTE0ZjVkMmJiYTM4YiIsImVtYWlsIjoiYmFoYWR1ckBsb2ttYW4uY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDA4MDU5NywiZXhwIjoxNzU0MTY2OTk3fQ.aYCZSHGoEnSTtZoAvCAwTE_B4XMNXEbeDB82JW6G9oU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"availability\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/driver/update-availability",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"update-availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update rating",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGEzMDYwYjk4MmFkYTg3ZDc2ZGQ1YSIsImVtYWlsIjoiYWJkY0BhYmQuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0MTA3MjQ4LCJleHAiOjE3NTQxOTM2NDh9.KXdOpnwP-3rjXb5wqq_7FmM9Z9OK4oEUyKQ2ac4c0wE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/driver/update-rating/688b5c29c6e827b7b1b3f704",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"update-rating",
+								"688b5c29c6e827b7b1b3f704"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get driver profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGIxODE3MWNhNTE0ZjVkMmJiYTM4YiIsImVtYWlsIjoiYmFoYWR1ckBsb2ttYW4uY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDEwODE2MSwiZXhwIjoxNzU0MTk0NTYxfQ.PZDtmdod3VwNWsiFjfpx2WICcP9UFZQVBldxM37QJDI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/driver/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get nearest drivers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGEzMDYwYjk4MmFkYTg3ZDc2ZGQ1YSIsImVtYWlsIjoiYWJkY0BhYmQuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0MTM3MjM1LCJleHAiOjE3NTQyMjM2MzV9.gndiCBx4OElhe5kNpjVb18EIk5aWENqf6sBrB1NbJhg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coords\": [\r\n        90.46855104443232,\r\n        23.694190295547607\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/driver/nearest-driver",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"driver",
+								"nearest-driver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RIdes",
+			"item": [
+				{
+					"name": "create ride request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0M2ZlZTk0ZjJhNWM2MzVkNDBlMSIsImVtYWlsIjoidGF5eWViYUBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzMjMzNDMsImV4cCI6MTc1NDQwOTc0M30.9QplO17nQCnXmhn11Qago97JfQAc8hcISQ5Vkkh-0Lk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"arrival\": [\r\n        90.40908757342758,\r\n        23.823694462488458\r\n    ],\r\n    \"destination\": [\r\n        90.44189352671027,\r\n        23.706556182872948\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ride/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all rides",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGEzMDYwYjk4MmFkYTg3ZDc2ZGQ1YSIsImVtYWlsIjoiYWJkY0BhYmQuY29tIiwicm9sZSI6IlJJREVSIiwiaWF0IjoxNzU0MDgwMzA0LCJleHAiOjE3NTQxNjY3MDR9.wUUKBYT7jhyNwBPhzbR83DFKp2HyIJPipXR4e6lkQsQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"688b18061ca514f5d2bba389\",\r\n    \"availability\": false,\r\n    \"drivingLicense\" : \"My driving dfdsfdas license\",\r\n    \"rating\" : null,\r\n    \"vehicle\": {\r\n        \"vehicleBrand\": \"Yamaha\",\r\n        \"vehicleModel\": \"YZ50\",\r\n        \"vehicleLicense\": \"MY vechicle license\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/ride",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "REQUESTED",
+									"disabled": true
+								},
+								{
+									"key": "distance",
+									"value": "160",
+									"disabled": true
+								},
+								{
+									"key": "rider",
+									"value": "688a3060b982ada87d76dd5a",
+									"disabled": true
+								},
+								{
+									"key": "fare",
+									"value": "160",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel route",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMwMTc4NCwiZXhwIjoxNzU0Mzg4MTg0fQ.cx9dEREPn6WNEtq0xBJz1b1c0UV-AV_cUaYRywgRS5M",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/cancel-ride/688e48d4e94f2a5c635d40eb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"cancel-ride",
+								"688e48d4e94f2a5c635d40eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update ride status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMwMzUzNCwiZXhwIjoxNzU0Mzg5OTM0fQ.ioR-Eokmuo55UsL07nQzQcLM1Q7GKdeaP0Zpkw9cfdA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\"ACCEPTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ride/update-ride-status/688e48d4e94f2a5c635d40eb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"update-ride-status",
+								"688e48d4e94f2a5c635d40eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept ride",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMwMzUzNCwiZXhwIjoxNzU0Mzg5OTM0fQ.ioR-Eokmuo55UsL07nQzQcLM1Q7GKdeaP0Zpkw9cfdA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/accept-ride/688e48d4e94f2a5c635d40eb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"accept-ride",
+								"688e48d4e94f2a5c635d40eb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get rides by user id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMxMDc4MiwiZXhwIjoxNzU0Mzk3MTgyfQ.BFbvS3RkvfD47YRosytZM3irJVKL-xOEJlCW3YS8KJQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/my-rides",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"my-rides"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "earning history",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMxMDc4MiwiZXhwIjoxNzU0Mzk3MTgyfQ.BFbvS3RkvfD47YRosytZM3irJVKL-xOEJlCW3YS8KJQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/my-earning?time=monthly",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"my-earning"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "monthly"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nearby rides",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0MGQwNTY0ODMwOGYzNWI5YWQ5MiIsImVtYWlsIjoiYWJkdWxsYWhAZ21haWwuY29tIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc1NDMxMDc4MiwiZXhwIjoxNzU0Mzk3MTgyfQ.BFbvS3RkvfD47YRosytZM3irJVKL-xOEJlCW3YS8KJQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/nearby-rides?latitude=90.91642277211622&longitude=24.768049799784272",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"nearby-rides"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "90.91642277211622"
+								},
+								{
+									"key": "longitude",
+									"value": "24.768049799784272"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "current ride",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4OGU0M2ZlZTk0ZjJhNWM2MzVkNDBlMSIsImVtYWlsIjoidGF5eWViYUBnbWFpbC5jb20iLCJyb2xlIjoiUklERVIiLCJpYXQiOjE3NTQzMjg1MzUsImV4cCI6MTc1NDQxNDkzNX0.YLZThw1pKBCNGLkqKms4Q4k6Aa8AVuUvD43NF_5g9EE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/ride/current-ride",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ride",
+								"current-ride"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

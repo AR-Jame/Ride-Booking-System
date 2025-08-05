@@ -45,6 +45,20 @@ const getProfile = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getUserDetails = catchAsync(async (req: Request, res: Response) => {
+
+    const userId = req.params.userId;
+
+    const user = await userServices.getUserDetails(userId);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "User Details retrieved successfully",
+        data: user
+    })
+})
+
 const updateUser = catchAsync(async (req: Request, res: Response) => {
 
     const userId = req.params.userId;
@@ -66,5 +80,6 @@ export const userControllers = {
     createUser,
     getUsers,
     updateUser,
-    getProfile
+    getProfile,
+    getUserDetails
 }

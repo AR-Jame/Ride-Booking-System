@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { VerifyToken } from "../utils/jwt";
 import { env } from "../config/env";
 
-export const checkAuth = (...role: string[]) => (req: Request, res: Response, next: NextFunction) => {
+export const checkAuth = (...authRoles: string[]) => (req: Request, res: Response, next: NextFunction) => {
 
     const token = req.headers.authorization;
 
@@ -12,9 +12,11 @@ export const checkAuth = (...role: string[]) => (req: Request, res: Response, ne
 
     const verifiedToken = VerifyToken(token, env.JWT_ACCESS_SECRET);
 
-    if (!role.includes(verifiedToken.role)) {
+    if (!authRoles.includes(verifiedToken.role)) {
         throw new Error("These resources aren't available for you.")
     }
+
+    console.log({ verifiedToken, authRoles });
 
     req.user = verifiedToken;
 
