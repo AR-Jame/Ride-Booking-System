@@ -43,6 +43,16 @@ const getProfile = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, 
         data: user
     });
 }));
+const getUserDetails = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.userId;
+    const user = yield user_services_1.userServices.getUserDetails(userId);
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: 200,
+        success: true,
+        message: "User Details retrieved successfully",
+        data: user
+    });
+}));
 const updateUser = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params.userId;
     const payload = req.body;
@@ -59,5 +69,6 @@ exports.userControllers = {
     createUser,
     getUsers,
     updateUser,
-    getProfile
+    getProfile,
+    getUserDetails
 };

@@ -67,10 +67,10 @@ const rideDetails = (rideId) => __awaiter(void 0, void 0, void 0, function* () {
 const getCurrentRide = (decodedToken) => __awaiter(void 0, void 0, void 0, function* () {
     let ride;
     if (decodedToken.role === user_interface_1.Role.DRIVER) {
-        ride = yield ride_model_1.Ride.findOne({ driver: decodedToken.id });
+        ride = yield ride_model_1.Ride.findOne({ driver: decodedToken.id, currentStatus: { $nin: ['CANCELED', "COMPLETED"] } });
     }
     else if (decodedToken.role === user_interface_1.Role.RIDER) {
-        ride = yield ride_model_1.Ride.findOne({ rider: decodedToken.id });
+        ride = yield ride_model_1.Ride.findOne({ rider: decodedToken.id, currentStatus: { $nin: ['CANCELED', "COMPLETED"] } });
     }
     return ride;
 });

@@ -77,10 +77,10 @@ const getCurrentRide = async (decodedToken: JwtPayload) => {
     let ride;
 
     if (decodedToken.role === Role.DRIVER) {
-        ride = await Ride.findOne({ driver: decodedToken.id });
+        ride = await Ride.findOne({ driver: decodedToken.id, currentStatus: { $nin: ['CANCELED', "COMPLETED"] } });
     }
     else if (decodedToken.role === Role.RIDER) {
-        ride = await Ride.findOne({ rider: decodedToken.id });
+        ride = await Ride.findOne({ rider: decodedToken.id, currentStatus: { $nin: ['CANCELED', "COMPLETED"] } });
     }
 
     return ride;

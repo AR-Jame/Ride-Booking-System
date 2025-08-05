@@ -13,13 +13,18 @@ router.post('/create',
 );
 
 router.get('/',
-    checkAuth(Role.ADMIN, Role.RIDER),
+    checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
     userControllers.getUsers
 );
 
 router.get('/me',
     checkAuth(...Object.values(Role)),
     userControllers.getProfile
+);
+
+router.get('/user-details/:userId',
+    checkAuth(...Object.values(Role)),
+    userControllers.getUserDetails
 );
 
 router.patch('/update-user/:userId',

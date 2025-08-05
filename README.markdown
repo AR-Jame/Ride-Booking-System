@@ -1,4 +1,4 @@
-# RIDE BOOKING APP
+# 🚙RIDE BOOKING APP
 A ride booking platform that connects passengers with available drivers in real time. This system enables users to request rides, track ride status, and complete bookings efficiently—similar to apps like Uber or Pathao.
 
 

@@ -78,9 +78,14 @@ const getProfile = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const _a = user === null || user === void 0 ? void 0 : user.toObject(), { password } = _a, rest = __rest(_a, ["password"]);
     return rest;
 });
+const getUserDetails = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.User.findById(userId);
+    return user;
+});
 exports.userServices = {
     createUser,
     getUsers,
     updateUserActivation,
-    getProfile
+    getProfile,
+    getUserDetails
 };

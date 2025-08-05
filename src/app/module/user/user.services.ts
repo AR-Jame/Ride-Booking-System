@@ -73,7 +73,7 @@ const updateUserActivation = async (userId: string, payload: Partial<IUser>, dec
 const getProfile = async (userId: Types.ObjectId) => {
     const user = await User.findById(userId);
 
-    if(!user){
+    if (!user) {
         throw new AppError(404, "User Does not found")
     }
 
@@ -82,9 +82,15 @@ const getProfile = async (userId: Types.ObjectId) => {
     return rest;
 }
 
+const getUserDetails = async (userId: string) => {
+    const user = await User.findById(userId);
+    return user;
+}
+
 export const userServices = {
     createUser,
     getUsers,
     updateUserActivation,
-    getProfile
+    getProfile,
+    getUserDetails
 }
