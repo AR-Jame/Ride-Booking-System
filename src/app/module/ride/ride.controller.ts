@@ -46,8 +46,8 @@ const getCurrentRide = catchAsync(async (req: Request, res: Response) => {
 const rideHistory = catchAsync(async (req: Request, res: Response) => {
 
     const user = req.user;
-
-    const rideData = await rideServices.rideHistory(user);
+    const query = req.query;
+    const rideData = await rideServices.rideHistory(user, query as Record<string, string>);
 
     sendResponse(res, {
         statusCode: 200,

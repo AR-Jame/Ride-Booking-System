@@ -84,7 +84,7 @@ const updateDriverStatus = async (userId: string, status: string) => {
 
 }
 
-const updateAvailability = async (userId: string, availability: boolean) => {
+const updateAvailability = async (userId: string) => {
 
     const isUserExist = await Driver.findOne({ user: userId });
 
@@ -95,7 +95,7 @@ const updateAvailability = async (userId: string, availability: boolean) => {
         throw new Error("We can't update your status right now.");
     }
 
-    await Driver.updateOne({ _id: userId, }, { status: availability });
+    await Driver.updateOne({ _id: userId, }, { status: !isUserExist.availability });
 
     return true
 }

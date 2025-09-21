@@ -20,7 +20,7 @@ router.post("/nearest-driver",
 );
 
 router.get("/",
-    checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+    checkAuth(...Object.values(Role)),
     driverControllers.getDriversWithUser
 );
 

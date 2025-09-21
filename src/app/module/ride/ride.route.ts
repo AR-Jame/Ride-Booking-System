@@ -2,7 +2,6 @@ import { Router } from "express";
 import { rideControllers } from "./ride.controller";
 import { checkAuth } from "../../middlewares/checkAuth";
 import { Role } from "../user/user.interface";
-import { IRideStatusEnum } from "./ride.interface";
 import { zodValidation } from "../../middlewares/schemaValidation";
 import { createRideSchema } from "./ride.validation";
 
@@ -15,7 +14,7 @@ router.post('/create',
     rideControllers.createRideRequest
 )
 router.get('/',
-    checkAuth(Role.ADMIN, Role.SUPER_ADMIN),
+    checkAuth(Role.ADMIN, Role.SUPER_ADMIN, Role.DRIVER),
     rideControllers.getAllRides
 )
 
@@ -30,8 +29,8 @@ router.get('/my-rides',
 )
 
 router.get('/ride-details/:rideId',
-    checkAuth(...Object.values(IRideStatusEnum)),
-    rideControllers.rideHistory
+    checkAuth(...Object.values(Role)),
+    rideControllers.rideDetails
 )
 
 router.get('/my-earning',
@@ -54,7 +53,7 @@ router.patch('/update-ride-status/:rideId',
     rideControllers.updateRideStatus
 )
 
-router.get('/accept-ride/:rideId',
+router.patch('/accept-ride/:rideId',
     checkAuth(Role.DRIVER),
     rideControllers.acceptRide
 )

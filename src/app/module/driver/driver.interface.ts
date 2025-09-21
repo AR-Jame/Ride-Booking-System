@@ -19,7 +19,7 @@ export interface IDriver {
     drivingLicense: string;
     status?: IDriverStatus;
     rating?: number;
-    ratingCount: number;
+    ratingCount?: number;
     vehicle: IVehicle;
-    currentLocation: number[];
+    currentLocation?: number[];
 }

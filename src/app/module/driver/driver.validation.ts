@@ -34,5 +34,5 @@ export const createDriverSchema = z.object({
         .min(0, "Rating cannot be negative")
         .optional(),
     vehicle: createVehicleSchema,
-    currentLocation: z.array(z.number())
+    // currentLocation: z.array(z.number()).optional().nullable()
 });
