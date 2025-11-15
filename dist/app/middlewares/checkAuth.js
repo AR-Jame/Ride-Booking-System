@@ -4,7 +4,7 @@ exports.checkAuth = void 0;
 const jwt_1 = require("../utils/jwt");
 const env_1 = require("../config/env");
 const checkAuth = (...authRoles) => (req, res, next) => {
-    const token = req.headers.authorization;
+    const token = req.cookies.accessToken || req.headers.authorization;
     if (!token) {
         throw new Error("Token does not found.");
     }
@@ -12,7 +12,6 @@ const checkAuth = (...authRoles) => (req, res, next) => {
     if (!authRoles.includes(verifiedToken.role)) {
         throw new Error("These resources aren't available for you.");
     }
-    console.log({ verifiedToken, authRoles });
     req.user = verifiedToken;
     next();
 };

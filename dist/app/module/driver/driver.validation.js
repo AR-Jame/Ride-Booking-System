@@ -37,5 +37,5 @@ exports.createDriverSchema = zod_1.default.object({
         .min(0, "Rating cannot be negative")
         .optional(),
     vehicle: exports.createVehicleSchema,
-    currentLocation: zod_1.default.array(zod_1.default.number())
+    // currentLocation: z.array(z.number()).optional().nullable()
 });

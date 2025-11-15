@@ -46,7 +46,8 @@ const getCurrentRide = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void
 }));
 const rideHistory = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
-    const rideData = yield ride_service_1.rideServices.rideHistory(user);
+    const query = req.query;
+    const rideData = yield ride_service_1.rideServices.rideHistory(user, query);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 200,
         success: true,
@@ -66,8 +67,7 @@ const rideDetails = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0,
 }));
 const getEarningHistory = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user.id;
-    const time = req.query.time || "daily";
-    const rideData = yield ride_service_1.rideServices.getEarningHistory(user, time);
+    const rideData = yield ride_service_1.rideServices.getEarningHistory(user);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 200,
         success: true,

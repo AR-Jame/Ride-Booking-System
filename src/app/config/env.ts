@@ -13,6 +13,7 @@ interface IEnv {
     JWT_REFRESH_SECRET: string;
     JWT_REFRESH_EXPIRES: string;
     GRAPH_HOPPER_API_KEY: string;
+    FRONTEND_URL: string;
 }
 
 const envSchema = z.object({
@@ -25,6 +26,7 @@ const envSchema = z.object({
     JWT_REFRESH_SECRET: z.string(),
     JWT_REFRESH_EXPIRES: z.any(),
     GRAPH_HOPPER_API_KEY: z.string(),
+    FRONTEND_URL: z.string(),
 })
 
 

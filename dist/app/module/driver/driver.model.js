@@ -18,7 +18,7 @@ const driverSchema = new mongoose_1.Schema({
         required: true,
         unique: true
     },
-    availability: { type: Boolean, default: false },
+    availability: { type: Boolean, default: true },
     drivingLicense: {
         type: String,
         required: true,
@@ -29,7 +29,6 @@ const driverSchema = new mongoose_1.Schema({
     },
     ratingCount: {
         type: Number,
-        required: true,
         default: 0
     },
     status: {
@@ -38,7 +37,7 @@ const driverSchema = new mongoose_1.Schema({
         default: driver_interface_1.IDriverStatus.REQUESTED
     },
     vehicle: vehicleSchema,
-    currentLocation: { type: [Number], required: true },
+    currentLocation: { type: [Number] },
 }, {
     versionKey: false,
     timestamps: true

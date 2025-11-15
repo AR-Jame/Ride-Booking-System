@@ -46,8 +46,8 @@ const getCurrentRide = catchAsync(async (req: Request, res: Response) => {
 const rideHistory = catchAsync(async (req: Request, res: Response) => {
 
     const user = req.user;
-
-    const rideData = await rideServices.rideHistory(user);
+    const query = req.query;
+    const rideData = await rideServices.rideHistory(user, query as Record<string, string>);
 
     sendResponse(res, {
         statusCode: 200,
@@ -73,8 +73,7 @@ const rideDetails = catchAsync(async (req: Request, res: Response) => {
 const getEarningHistory = catchAsync(async (req: Request, res: Response) => {
 
     const user = req.user.id;
-    const time = req.query.time || "daily";
-    const rideData = await rideServices.getEarningHistory(user, time as string);
+    const rideData = await rideServices.getEarningHistory(user);
 
     sendResponse(res, {
         statusCode: 200,

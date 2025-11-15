@@ -75,8 +75,7 @@ const updateDriverStatus = catchAsync(async (req: Request, res: Response) => {
 
 const updateAvailability = catchAsync(async (req: Request, res: Response) => {
     const userId = req.user.id;
-    const availability = req.body.availability;
-    const response = await driverServices.updateAvailability(userId, availability);
+    const response = await driverServices.updateAvailability(userId);
 
     sendResponse(res, {
         statusCode: 201,

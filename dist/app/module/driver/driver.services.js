@@ -77,7 +77,7 @@ const updateDriverStatus = (userId, status) => __awaiter(void 0, void 0, void 0,
         throw new Error("Invalid request.");
     }
 });
-const updateAvailability = (userId, availability) => __awaiter(void 0, void 0, void 0, function* () {
+const updateAvailability = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const isUserExist = yield driver_model_1.Driver.findOne({ user: userId });
     if (!isUserExist) {
         throw new Error("Driver does not found");
@@ -85,7 +85,7 @@ const updateAvailability = (userId, availability) => __awaiter(void 0, void 0, v
     else if (isUserExist.status !== driver_interface_1.IDriverStatus.APPROVED) {
         throw new Error("We can't update your status right now.");
     }
-    yield driver_model_1.Driver.updateOne({ _id: userId, }, { status: availability });
+    yield driver_model_1.Driver.updateOne({ _id: userId, }, { status: !isUserExist.availability });
     return true;
 });
 const updateRating = (id, rating) => __awaiter(void 0, void 0, void 0, function* () {

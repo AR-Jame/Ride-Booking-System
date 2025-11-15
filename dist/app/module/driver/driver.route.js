@@ -10,7 +10,7 @@ const driver_validation_1 = require("./driver.validation");
 const router = (0, express_1.Router)();
 router.post("/create", (0, schemaValidation_1.zodValidation)(driver_validation_1.createDriverSchema), (0, checkAuth_1.checkAuth)(user_interface_1.Role.RIDER), driver_controller_1.driverControllers.createDriver);
 router.post("/nearest-driver", (0, checkAuth_1.checkAuth)(user_interface_1.Role.RIDER), driver_controller_1.driverControllers.getNearbyDrivers);
-router.get("/", (0, checkAuth_1.checkAuth)(user_interface_1.Role.ADMIN, user_interface_1.Role.SUPER_ADMIN), driver_controller_1.driverControllers.getDriversWithUser);
+router.get("/", (0, checkAuth_1.checkAuth)(...Object.values(user_interface_1.Role)), driver_controller_1.driverControllers.getDriversWithUser);
 router.get("/me", (0, checkAuth_1.checkAuth)(user_interface_1.Role.DRIVER), driver_controller_1.driverControllers.getDriverProfile);
 router.patch('/update-status/:userId', (0, checkAuth_1.checkAuth)(user_interface_1.Role.ADMIN, user_interface_1.Role.SUPER_ADMIN), driver_controller_1.driverControllers.updateDriverStatus);
 router.patch('/update-availability', (0, checkAuth_1.checkAuth)(user_interface_1.Role.DRIVER), driver_controller_1.driverControllers.updateAvailability);

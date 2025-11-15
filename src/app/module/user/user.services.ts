@@ -62,17 +62,16 @@ const updateUserActivation = async (userId: string, payload: Partial<IUser>, dec
     }
 
     if (payload.password) {
-        payload.password = await bcryptjs.hash(payload.password, env.BCRYPT_SALT_ROUND);
+        payload.password = await bcryptjs.hash(payload.password, Number(env.BCRYPT_SALT_ROUND));
     }
-
+    console.log(payload);
     const updatedUser = await User.findByIdAndUpdate(userId, payload, { new: true })
-
+    console.log(updatedUser);
     return updatedUser
 }
 
 const getProfile = async (userId: Types.ObjectId) => {
     const user = await User.findById(userId);
-
     if (!user) {
         throw new AppError(404, "User Does not found")
     }

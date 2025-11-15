@@ -67,8 +67,7 @@ const updateDriverStatus = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(
 }));
 const updateAvailability = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user.id;
-    const availability = req.body.availability;
-    const response = yield driver_services_1.driverServices.updateAvailability(userId, availability);
+    const response = yield driver_services_1.driverServices.updateAvailability(userId);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 201,
         message: "Your availability updated successfully.",

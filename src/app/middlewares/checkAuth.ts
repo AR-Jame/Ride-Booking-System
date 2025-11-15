@@ -4,7 +4,7 @@ import { env } from "../config/env";
 
 export const checkAuth = (...authRoles: string[]) => (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.headers.authorization;
+    const token = req.cookies.accessToken || req.headers.authorization;
 
     if (!token) {
         throw new Error("Token does not found.")
@@ -15,9 +15,6 @@ export const checkAuth = (...authRoles: string[]) => (req: Request, res: Respons
     if (!authRoles.includes(verifiedToken.role)) {
         throw new Error("These resources aren't available for you.")
     }
-
-    console.log({ verifiedToken, authRoles });
-
     req.user = verifiedToken;
 
     next()

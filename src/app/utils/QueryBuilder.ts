@@ -20,6 +20,7 @@ export class QueryBuilder<T> {
 
     fieldFilter(): this {
         const selectedField = this.query.fields?.split(',').join(" ") || "";
+        console.log({ query: this.query });
         this.modelQuery = this.modelQuery.select(selectedField);
         return this
     };
@@ -70,10 +71,19 @@ export class QueryBuilder<T> {
         return this.modelQuery
     }
 
+    async getMeta() {
+        const totalDocuments = await this.modelQuery.model.countDocuments()
+        const page = Number(this.query.page) || 1
+        const limit = Number(this.query.limit) || 10
+
+        const totalPage = Math.ceil(totalDocuments / limit)
+
+        return { page, limit, total: totalDocuments, totalPage }
+    }
+
     population(field: string): this {
         this.modelQuery = this.modelQuery.populate(field);
         return this
     }
 
-    // TODO: we will add meta here
 }

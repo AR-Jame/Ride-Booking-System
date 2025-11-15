@@ -8,8 +8,16 @@ const login = catchAsync(async (req: Request, res: Response) => {
 
     const data = await authServices.login(payload);
 
-    res.cookie("accessToken", data.accessToken)
-    res.cookie("refreshToken", data.refreshToken)
+    res.cookie("accessToken", data.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
+    res.cookie("refreshToken", data.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
 
     sendResponse(res, {
         statusCode: 200,
@@ -36,7 +44,29 @@ const getAccessToken = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const logout = catchAsync(async (req: Request, res: Response) => {
+
+    res.clearCookie('accessToken', {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    })
+    res.clearCookie('refreshToken', {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    })
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Logout successfully.',
+        data: {}
+    })
+})
+
 export const authControllers = {
     login,
-    getAccessToken
+    getAccessToken,
+    logout,
 }

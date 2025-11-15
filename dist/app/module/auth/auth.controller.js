@@ -16,8 +16,16 @@ const sendResponse_1 = require("../../utils/sendResponse");
 const login = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = req.body;
     const data = yield auth_services_1.authServices.login(payload);
-    res.cookie("accessToken", data.accessToken);
-    res.cookie("refreshToken", data.refreshToken);
+    res.cookie("accessToken", data.accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
+    res.cookie("refreshToken", data.refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: 200,
         message: "User logged in successfully",
